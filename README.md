@@ -1,2 +1,2 @@
 # Python
-For Python
+This is the python repository.
