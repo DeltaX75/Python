@@ -43,5 +43,6 @@ plt.axvline(0, color='black', linewidth=1)  # 垂直y轴
 # 添加图例
 plt.legend()
 
+
 # 显示图形
 plt.show()
