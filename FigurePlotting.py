@@ -22,7 +22,6 @@ for i in range(len(t0)):
 plt.xlabel("t")
 plt.ylabel("x(t)")
 plt.title("x(t)")
-plt.legend()  # 打上标签
+plt.legend()   # 打上标签
 plt.show()
-
 
