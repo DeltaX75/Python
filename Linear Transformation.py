@@ -36,13 +36,11 @@ plt.plot(x_transformed, y_transformed, label='Transformed Points')  # 红色圆�
 # plt.annotate('', xy=(20, 0), xytext=(0, 0), arrowprops=dict(facecolor='black', shrink=0.00))
 # plt.annotate('', xy=(0, 20), xytext=(0, 0), arrowprops=dict(arrowstyle='->', facecolor='black'))
 
-
 # 绘制坐标轴
 plt.axhline(0, color='black', linewidth=1)  # 水平x轴
 plt.axvline(0, color='black', linewidth=1)  # 垂直y轴
 # 添加图例
 plt.legend()
-
 
 # 显示图形
 plt.show()
