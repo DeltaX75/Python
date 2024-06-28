@@ -14,6 +14,7 @@ A = np.array(
     ]
 )
 
+# 将A的非0元素归一化
 A[A != 0] = 1
 
 receivers = [
@@ -23,6 +24,8 @@ receivers = [
 
 num_leaders = len(receivers)  # 自动获取领导者的数量
 
+# 由于networkX邻接矩阵定义为i->j为1
+# 因此我们需要转置一下
 A = A.T
 
 # 创建一个新的矩阵B，扩展原矩阵A以包含num_leaders个虚拟的领导者节点
@@ -39,8 +42,6 @@ for i, receiver_list in enumerate(receivers):
                 1  # 领导者i连接到接收者receiver，考虑到编号偏移和领导者索引
             )
 
-# 输出图的邻接矩阵
-print("A =\n", B.T)
 
 # 创建有向图对象
 G = nx.from_numpy_array(B, create_using=nx.DiGraph)
@@ -77,3 +78,6 @@ plt.axis("equal")
 
 # 显示图形
 plt.show()
+
+# 输出最终图的邻接矩阵
+print("A =\n", B.T)
