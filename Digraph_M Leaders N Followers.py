@@ -2,6 +2,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
 
+def numpy_to_matlab(matrix):
+    """Convert a NumPy array to a MATLAB formatted string."""
+    matlab_str = "["  # 开始 MATLAB 矩阵格式
+    for row in matrix:
+        # 将每一行转换为字符串，并用空格分隔元素
+        row_str = " ".join(map(str, row))
+        # 在 MATLAB 中，矩阵的行以分号隔开
+        matlab_str += row_str + "; "
+    matlab_str = matlab_str.strip("; ")  # 移除最后一个分号
+    matlab_str += "]"  # 结束 MATLAB 矩阵格式
+    return matlab_str
+
 # 定义邻接矩阵，表示节点间的连接关系
 A = np.array(
     [
@@ -76,8 +88,23 @@ nx.draw(
 # 设置坐标轴为1:1比例，防止图像被压扁或拉伸
 plt.axis("equal")
 
-# 显示图形
-plt.show()
+# 输出矩阵信息区域
 
 # 输出最终图的邻接矩阵
-print("A =\n", B.T)
+print("Adjacency Matrix =\n", B.T)
+print("Adjacency Matrix =\n", numpy_to_matlab(B.T))
+print("--------------------------------")
+
+# 计算每个节点的入度（每行的和）
+in_degrees = np.sum(B.T, axis=1)
+# 创建入度矩阵 D，是一个对角矩阵，对角线元素为各节点的入度
+D = np.diag(in_degrees)
+# 计算拉普拉斯矩阵 L = D - A
+L = D - B.T
+
+# 输出图的拉普拉斯矩阵
+print("Laplacian Matrix =\n", L)
+print("Laplacian Matrix(Matlab) =\n", numpy_to_matlab(L))
+
+# 显示图形
+plt.show()
