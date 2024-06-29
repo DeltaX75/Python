@@ -17,27 +17,25 @@ def numpy_to_matlab(matrix):
 # 定义邻接矩阵，表示节点间的连接关系
 A = np.array(
     [
-        [0, 0, 0, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0],
-        [1, 1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 0, 0],
-        [0, 0, 0, 0, 1, 0],
+        [0, 0, 0, 1],
+        [1, 0, 0, 0],
+        [0, 0, 0, 1],
+        [0, 1, 1, 0],
     ]
 )
-
 # 将A的非0元素归一化
 A[A != 0] = 1
 
 receivers = [
-    [1, 3, 5, 6],  # L1的接收者：1号、3号、5号、6号节点
-    # [2, 4],  # L2的接收者：2号、4号节点
+    [1, 2],  # L1的接收者：1号、3号、5号、6号节点
+    [4],  # L2的接收者：2号、4号节点
 ]
 
 num_leaders = len(receivers)  # 自动获取领导者的数量
 
 # 由于networkX邻接矩阵定义为i->j为1
 # 因此我们需要转置一下
+# 将矩阵转置以匹配networkX中的行为边的源节点，列为目标节点的约定
 A = A.T
 
 # 创建一个新的矩阵B，扩展原矩阵A以包含num_leaders个虚拟的领导者节点
@@ -72,7 +70,7 @@ for i in range(num_nodes):
 # 绘制图，包括节点标签。使用自定义位置绘制节点
 colors = ["#6495ED"] * num_leaders + ["#FFA07A"] * num_followers
 labels = {
-    i: f"L{i+1}" if i < num_leaders else f"F{i+1-num_leaders}" for i in range(num_nodes)
+    i: f"L{i+1}" if i < num_leaders else f"{i+1-num_leaders}" for i in range(num_nodes)
 }
 nx.draw(
     G,
@@ -106,5 +104,7 @@ L = D - B.T
 print("Laplacian Matrix =\n", L)
 print("Laplacian Matrix(Matlab) =\n", numpy_to_matlab(L))
 
+# 保存图形
+# plt.savefig('graph.svg', format='svg')
 # 显示图形
 plt.show()
